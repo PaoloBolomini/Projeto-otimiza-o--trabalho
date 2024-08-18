@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainScreen {
+public class MenuScreen {
     private static JLabel displayLabel; // Label para mostrar os registros
     private static JTextField searchField; // Campo de texto para digitação
     private static String textomenu = "<html>Clique em alguma consulta e escreva o nome da tabela ou informação para gerar o retorno.<br><br>"
@@ -14,7 +14,7 @@ public class MainScreen {
     		+ "Consulta 3 - Verifica de qual tabela no banco é uma determinada Primary Key ou Foreign Key.<br>"
     		+ "Consulta 4 - Valida Objetos/XML/HL7/DicOjetos e retona a informação de qual desses registros consulta a tabela descrita.<br>";
 
-    public static void main(String[] args) {
+    public MenuScreen() {
         // Criando o JFrame
         JFrame frame = new JFrame("Aplicação");
         frame.setSize(900, 550);
