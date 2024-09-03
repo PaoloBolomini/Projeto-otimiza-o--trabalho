@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,11 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.paolo.dboracle.Db;
+
 public class HomeScreen {
 
-    private static JTextField firstField;  // Primeiro campo de texto
-    private static JTextField secondField; // Segundo campo de texto
-    private static JTextField thirdField;  // Terceiro campo de texto
+    private static JTextField fieldhost;  // Primeiro campo de texto
+    private static JTextField fielduser; // Segundo campo de texto
+    private static JTextField fieldpassword;  // Terceiro campo de texto
 
     public HomeScreen() {
         // Criando o JFrame
@@ -41,30 +44,30 @@ public class HomeScreen {
         gbc.gridy = 0;
         mainPanel.add(firstLabel, gbc);
 
-        // Primeiro campo de texto
-        firstField = new JTextField(20);
+        // Primeiro campo host
+        fieldhost = new JTextField(20);
         gbc.gridy = 1;
-        mainPanel.add(firstField, gbc);
+        mainPanel.add(fieldhost, gbc);
 
-        // Label para o segundo campo
+        // Label para o segundo campo usuário
         JLabel secondLabel = new JLabel("Usuário");
         gbc.gridy = 2;
         mainPanel.add(secondLabel, gbc);
 
-        // Segundo campo de texto
-        secondField = new JTextField(20);
+        // Segundo campo 
+        fielduser = new JTextField(20);
         gbc.gridy = 3;
-        mainPanel.add(secondField, gbc);
+        mainPanel.add(fielduser, gbc);
 
         // Label para o terceiro campo
         JLabel thirdLabel = new JLabel("Senha");
         gbc.gridy = 4;
         mainPanel.add(thirdLabel, gbc);
 
-        // Terceiro campo de texto
-        thirdField = new JTextField(20);
+        // Terceiro campo de texto senha
+        fieldpassword = new JTextField(20);
         gbc.gridy = 5;
-        mainPanel.add(thirdField, gbc);
+        mainPanel.add(fieldpassword, gbc);
 
         // Botão de pesquisa
         JButton searchButton = new JButton("Conectar");
@@ -78,16 +81,43 @@ public class HomeScreen {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String firstText = firstField.getText();
-                String secondText = secondField.getText();
-                String thirdText = thirdField.getText();
-                System.out.println("retorno 1  " + firstText);
-                System.out.println("retorno 2  " + secondText);
-                System.out.println("retorno 3  " + thirdText);
+                String firstText = fieldhost.getText();
+                String secondText = fielduser.getText();
+                String thirdText = fieldpassword.getText();
+               
+                Connection conn = null;
+        		conn = Db.getConnection();
+        		
+        		if(conn != null) {
+        			
+        			System.out.println("Conexão com o banco correta");
+        			new MenuScreen();
+        		}
+        		else {
+        			System.out.println("Conexão falhou");
+        		}
+        		
+        		Db.closeConnection();
             }
         });
+        
+        
 
         // Tornando o frame visível
         frame.setVisible(true);
     }
+
+	public static JTextField getFieldHost() {
+		return fieldhost;
+	}
+
+	public static JTextField getFieldUser() {
+		return fielduser;
+	}
+
+	public static JTextField getFieldPassword() {
+		return fieldpassword;
+	}
+
+	
 }
